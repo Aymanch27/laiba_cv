@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laiba Nawaz — Briefing File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B1D33;
+    --ink-2:#122747;
+    --ink-3:#1A3358;
+    --paper:#EDE7D6;
+    --paper-dim:#C9C2AC;
+    --brass:#BE9A63;
+    --brass-dim:#8C744F;
+    --slate:#7C93AC;
+    --redline:#A6402F;
+    --line: rgba(237,231,214,0.14);
+
+    --display: 'Fraunces', serif;
+    --body: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:var(--body);
+    font-weight:300;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background:var(--brass); color:var(--ink); }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- texture ---------- */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(237,231,214,0.045) 1px, transparent 1px);
+    background-size: 26px 26px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(11,29,51,0.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1100px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-mark{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.14em;
+    color:var(--brass); display:flex; align-items:center; gap:10px;
+  }
+  .nav-mark .dot{ width:6px; height:6px; border-radius:50%; background:var(--redline); display:inline-block; }
+  .nav-links{ display:flex; gap:28px; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; }
+  .nav-links a{ color:var(--slate); transition:color .25s ease; text-transform:uppercase; }
+  .nav-links a:hover{ color:var(--paper); }
+  .nav-toggle{ display:none; }
+
+  @media (max-width:720px){
+    .nav-links{ display:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; align-items:center;
+    padding-top:90px;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    position:relative; z-index:2;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center;
+    width:100%;
+  }
+  @media (max-width:900px){
+    .hero .wrap{ grid-template-columns:1fr; }
+    .hero-globe{ order:-1; }
+  }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.2em;
+    color:var(--brass); text-transform:uppercase;
+    display:flex; align-items:center; gap:12px; margin-bottom:26px;
+  }
+  .eyebrow::before{ content:""; width:34px; height:1px; background:var(--brass); }
+
+  h1.name{
+    font-family:var(--display);
+    font-weight:450;
+    font-size:clamp(48px, 7vw, 84px);
+    line-height:0.98;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+  }
+  h1.name em{
+    font-style:italic; font-weight:300; color:var(--slate);
+    display:block; font-size:0.42em; letter-spacing:0.02em; margin-top:14px;
+  }
+
+  .motto{
+    font-family:var(--display); font-style:italic; font-weight:300;
+    font-size:19px; color:var(--paper-dim);
+    max-width:480px; margin-top:26px;
+    border-left:2px solid var(--brass-dim); padding-left:18px;
+  }
+
+  .hero-meta{
+    margin-top:38px; display:flex; flex-wrap:wrap; gap:10px 0;
+    font-family:var(--mono); font-size:11.5px; color:var(--slate);
+  }
+  .hero-meta span{ padding:0 16px; border-right:1px solid var(--line); }
+  .hero-meta span:first-child{ padding-left:0; }
+  .hero-meta span:last-child{ border-right:none; }
+
+  .hero-cta{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:14px 26px; border:1px solid var(--brass); color:var(--paper);
+    transition:all .25s ease; display:inline-block;
+  }
+  .btn:hover{ background:var(--brass); color:var(--ink); }
+  .btn.ghost{ border-color:var(--line); color:var(--slate); }
+  .btn.ghost:hover{ border-color:var(--slate); background:transparent; color:var(--paper); }
+
+  /* ---------- globe ---------- */
+  .hero-globe{ position:relative; display:flex; justify-content:center; }
+  .hero-globe svg{ width:100%; max-width:440px; height:auto; }
+  .globe-spin{ transform-origin:210px 210px; animation:spin 90s linear infinite; }
+  @keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
+  .globe-pin{ animation:pulse 2.6s ease-in-out infinite; transform-origin:center; }
+  .globe-pin.p2{ animation-delay:.5s; }
+  .globe-pin.p3{ animation-delay:1s; }
+  @keyframes pulse{ 0%,100%{ opacity:.35; } 50%{ opacity:1; } }
+  .coord-label{ font-family:var(--mono); font-size:9px; fill:var(--slate); letter-spacing:.05em; }
+
+  @media (prefers-reduced-motion: reduce){
+    .globe-spin{ animation:none; }
+    .globe-pin{ animation:none; opacity:.9; }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ position:relative; z-index:1; padding:110px 0 40px; border-top:1px solid var(--line); }
+  section:first-of-type{ border-top:none; }
+
+  .folio{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:56px; gap:20px; flex-wrap:wrap;
+  }
+  .folio h2{
+    font-family:var(--display); font-weight:450; font-size:clamp(28px,3.6vw,40px);
+    color:var(--paper);
+  }
+  .folio .num{
+    font-family:var(--mono); font-size:12px; color:var(--brass-dim); letter-spacing:.1em;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px;
+  }
+  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
+  .about-lede{
+    font-family:var(--display); font-style:italic; font-weight:300;
+    font-size:24px; line-height:1.5; color:var(--paper);
+  }
+  .about-body p{ color:var(--paper-dim); font-size:15.5px; margin-bottom:16px; }
+  .stamp{
+    margin-top:28px; display:inline-block;
+    border:1px solid var(--redline); color:var(--redline);
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
+    padding:8px 14px; transform:rotate(-2deg); text-transform:uppercase;
+  }
+
+  /* ---------- timeline (education) ---------- */
+  .cable{
+    position:relative; padding-left:32px; border-left:1px solid var(--line);
+  }
+  .entry{ position:relative; padding-bottom:44px; }
+  .entry:last-child{ padding-bottom:0; }
+  .entry::before{
+    content:""; position:absolute; left:-37px; top:4px;
+    width:9px; height:9px; border-radius:50%;
+    background:var(--ink); border:1px solid var(--brass);
+  }
+  .entry .date{
+    font-family:var(--mono); font-size:11px; color:var(--brass);
+    letter-spacing:.06em; margin-bottom:8px; display:block;
+  }
+  .entry h3{
+    font-family:var(--display); font-weight:450; font-size:21px; color:var(--paper);
+    margin-bottom:4px;
+  }
+  .entry .place{ font-family:var(--mono); font-size:11px; color:var(--slate); margin-bottom:10px; display:block; }
+  .entry p{ color:var(--paper-dim); font-size:14.5px; max-width:620px; }
+  .entry .tag{
+    display:inline-block; margin-top:10px; font-family:var(--mono); font-size:10.5px;
+    color:var(--ink); background:var(--paper-dim); padding:3px 9px; letter-spacing:.05em;
+  }
+
+  /* ---------- experience two-col ---------- */
+  .exp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; }
+  @media (max-width:800px){ .exp-grid{ grid-template-columns:1fr; gap:44px; } }
+  .exp-col h4{
+    font-family:var(--mono); font-size:12px; color:var(--brass); letter-spacing:.14em;
+    text-transform:uppercase; margin-bottom:24px; padding-bottom:10px; border-bottom:1px solid var(--line);
+  }
+  .exp-item{ margin-bottom:26px; }
+  .exp-item .date{ font-family:var(--mono); font-size:10.5px; color:var(--slate); display:block; margin-bottom:4px; }
+  .exp-item h5{ font-family:var(--display); font-size:17px; font-weight:450; color:var(--paper); margin-bottom:5px; }
+  .exp-item p{ font-size:14px; color:var(--paper-dim); }
+  .exp-item a.ext{ font-family:var(--mono); font-size:10.5px; color:var(--brass); border-bottom:1px dotted var(--brass-dim); }
+
+  /* ---------- skills ---------- */
+  .skills-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
+  @media (max-width:800px){ .skills-grid{ grid-template-columns:1fr; gap:44px; } }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    font-family:var(--mono); font-size:12px; color:var(--paper-dim);
+    border:1px solid var(--line); padding:9px 15px; letter-spacing:.02em;
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .chip:hover{ border-color:var(--brass); color:var(--paper); }
+
+  .lang-block{ margin-bottom:26px; }
+  .lang-block .lang-name{
+    font-family:var(--display); font-size:18px; color:var(--paper); margin-bottom:12px;
+    display:flex; justify-content:space-between; align-items:baseline;
+  }
+  .lang-name small{ font-family:var(--mono); font-size:10px; color:var(--slate); letter-spacing:.1em; }
+  .cefr-row{ display:flex; gap:6px; margin-bottom:6px; align-items:center; }
+  .cefr-label{ width:120px; font-family:var(--mono); font-size:10px; color:var(--slate); }
+  .cefr-track{ flex:1; height:5px; background:var(--ink-2); position:relative; }
+  .cefr-fill{ height:100%; background:var(--brass); }
+
+  /* ---------- honours & certs ---------- */
+  .seal-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; }
+  .seal{
+    border:1px solid var(--line); padding:22px; position:relative;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .seal:hover{ border-color:var(--brass-dim); transform:translateY(-3px); }
+  .seal .date{ font-family:var(--mono); font-size:10px; color:var(--slate); display:block; margin-bottom:10px; }
+  .seal h5{ font-family:var(--display); font-size:16px; color:var(--paper); font-weight:450; margin-bottom:6px; }
+  .seal p{ font-size:12.5px; color:var(--paper-dim); }
+
+  /* ---------- network ---------- */
+  .network-list{ border-top:1px solid var(--line); }
+  .network-row{
+    display:grid; grid-template-columns:140px 1fr auto; gap:20px; align-items:center;
+    padding:22px 0; border-bottom:1px solid var(--line);
+  }
+  @media (max-width:700px){ .network-row{ grid-template-columns:1fr; gap:6px; } }
+  .network-row .date{ font-family:var(--mono); font-size:11px; color:var(--brass); }
+  .network-row h5{ font-family:var(--display); font-size:18px; color:var(--paper); font-weight:450; }
+  .network-row p{ font-size:13px; color:var(--paper-dim); margin-top:2px; }
+  .network-row a{ font-family:var(--mono); font-size:11px; color:var(--slate); border-bottom:1px dotted var(--slate); white-space:nowrap; }
+  .network-row a:hover{ color:var(--brass); border-color:var(--brass); }
+
+  /* ---------- footer / contact ---------- */
+  footer{
+    padding:100px 0 60px; border-top:1px solid var(--line); position:relative; z-index:1;
+  }
+  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:end; }
+  @media (max-width:800px){ .footer-grid{ grid-template-columns:1fr; } }
+  footer h2{
+    font-family:var(--display); font-weight:450; font-size:clamp(32px,5vw,54px); color:var(--paper);
+    line-height:1.05;
+  }
+  .footer-contacts{ display:flex; flex-direction:column; gap:14px; font-family:var(--mono); font-size:13px; }
+  .footer-contacts a{ color:var(--paper-dim); transition:color .2s ease; }
+  .footer-contacts a:hover{ color:var(--brass); }
+  .footer-bottom{
+    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+    font-family:var(--mono); font-size:10.5px; color:var(--slate); letter-spacing:.06em;
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> FILE NO. IR-2025 / LAIBA NAWAZ</div>
+    <nav class="nav-links">
+      <a href="#file">File</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#honours">Honours</a>
+      <a href="#network">Network</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="file">
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">Briefing File — International Relations</div>
+      <h1 class="name">Laiba<br>Nawaz<em>Decoding global dynamics, one policy file at a time.</em></h1>
+      <p class="motto">"Decoding Global Dynamics, Designing Policy Pathways, Driving International Progress."</p>
+      <div class="hero-meta">
+        <span>Gujrat, Pakistan</span>
+        <span>32.5738°N 74.0789°E</span>
+        <span>BS International Relations, 3.9/4.0</span>
+        <span>English C2 · German A1</span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn" href="#education">Open the file</a>
+        <a class="btn ghost" href="#contact">Request contact</a>
+      </div>
+    </div>
+
+    <div class="hero-globe">
+      <svg viewBox="0 0 420 420" role="img" aria-label="Stylised globe marking Gujrat, Berlin and London">
+        <circle cx="210" cy="210" r="150" fill="none" stroke="var(--line)" stroke-width="1"/>
+        <g class="globe-spin">
+          <ellipse cx="210" cy="210" rx="150" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
+          <ellipse cx="210" cy="210" rx="150" ry="60" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
+          <ellipse cx="210" cy="210" rx="150" ry="105" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
+          <ellipse cx="210" cy="210" rx="60" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
+          <ellipse cx="210" cy="210" rx="105" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
+          <line x1="60" y1="210" x2="360" y2="210" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
+          <line x1="210" y1="60" x2="210" y2="360" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
+        </g>
+
+        <path d="M 246 236 Q 220 150 150 120" fill="none" stroke="var(--brass)" stroke-width="1" stroke-dasharray="3 5" opacity="0.7"/>
+        <path d="M 246 236 Q 200 130 110 150" fill="none" stroke="var(--brass)" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+
+        <circle class="globe-pin" cx="246" cy="236" r="4.5" fill="var(--redline)"/>
+        <text x="256" y="240" class="coord-label">GUJRAT</text>
+
+        <circle class="globe-pin p2" cx="150" cy="120" r="3.5" fill="var(--paper)"/>
+        <text x="158" y="116" class="coord-label">BERLIN</text>
+
+        <circle class="globe-pin p3" cx="110" cy="150" r="3.5" fill="var(--paper)"/>
+        <text x="70" y="168" class="coord-label">LONDON</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Subject Summary</h2>
+      <span class="num">§ 01 / ABOUT</span>
+    </div>
+    <div class="about-grid reveal">
+      <p class="about-lede">Reads borders as arguments — trained to trace how geography, institutions and policy design quietly decide who holds power.</p>
+      <div class="about-body">
+        <p>International Relations graduate specialising in political analysis, global governance, foreign policy, international law and international affairs. Comfortable moving between policy research, critical analysis, and the evaluation of how international organisations shape cooperation and decision-making.</p>
+        <p>Thesis work examined geography as a determinant of power, tracing how Germany's position on the map shaped its global affairs from 1900 to the present decade — a lens that now runs through most of her research questions.</p>
+        <p>Motivated to bring evidence-based insight to research and policy work through analytical thinking and an interdisciplinary approach that treats history, geography and institutions as one connected system.</p>
+        <span class="stamp">Gold Medalist · Rank 1 / 80</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Education &amp; Training</h2>
+      <span class="num">§ 02 / RECORD</span>
+    </div>
+    <div class="cable reveal">
+      <div class="entry">
+        <span class="date">NOV 2021 — JUN 2025 · GUJRAT, PAKISTAN</span>
+        <h3>BS in International Relations</h3>
+        <span class="place">University of Gujrat</span>
+        <p>Final grade 3.9 / 4.0. Thesis: "Geography as a determinant of power: analyzing the impact of Germany's geography on its global affairs from 1900 to the current decade."</p>
+        <span class="tag">Gold Medalist — highest cGPA, 1st of 80</span>
+      </div>
+      <div class="entry">
+        <span class="date">SEP 2019 — AUG 2021 · GUJRAT, PAKISTAN</span>
+        <h3>A Levels</h3>
+        <span class="place">Lahore Grammar School</span>
+      </div>
+      <div class="entry">
+        <span class="date">AUG 2017 — AUG 2019 · GUJRAT, PAKISTAN</span>
+        <h3>IGCSE</h3>
+        <span class="place">Roots Millennium School, Jinnah Campus Gujrat</span>
+        <p>Final grade: 2 A*, 5 A.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Field Experience</h2>
+      <span class="num">§ 03 / ACTIVITY LOG</span>
+    </div>
+    <div class="exp-grid reveal">
+      <div class="exp-col">
+        <h4>Roles</h4>
+        <div class="exp-item">
+          <span class="date">JAN 2022 — JAN 2025 · GUJRAT</span>
+          <h5>Volunteer, Pakistan Muslim League (Q)</h5>
+          <p>Assisted with event management and community outreach, while observing policy development processes and organisational strategy up close.</p>
+        </div>
+        <div class="exp-item">
+          <span class="date">MAY 2024 · GUJRAT</span>
+          <h5>Youth Internship, Punjab Police</h5>
+          <p>Gained direct insight into how the department is managed and operates day to day.</p>
+        </div>
+        <div class="exp-item">
+          <span class="date">MAY 2025 — JUN 2025 · VIRTUAL</span>
+          <h5>Content Writing Intern, Insider.pvt</h5>
+          <p>Wrote and shaped content across current-affairs topics.</p>
+        </div>
+      </div>
+      <div class="exp-col">
+        <h4>Bootcamps &amp; Seminars</h4>
+        <div class="exp-item">
+          <span class="date">MAR — APR 2025 · ONLINE</span>
+          <h5>Ultimate Research Bootcamp</h5>
+          <p>Multiomics.</p>
+        </div>
+        <div class="exp-item">
+          <span class="date">NOV 2023 · GUJRAT</span>
+          <h5>Innovative Skills in Journalism</h5>
+        </div>
+        <div class="exp-item">
+          <span class="date">SEP 2023</span>
+          <h5>3rd Place, Essay Writing</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Working Skills</h2>
+      <span class="num">§ 04 / CAPABILITIES</span>
+    </div>
+    <div class="skills-grid reveal">
+      <div>
+        <div class="chip-row">
+          <span class="chip">Policy research &amp; writing</span>
+          <span class="chip">Foreign affairs analysis</span>
+          <span class="chip">Project management</span>
+          <span class="chip">Microsoft PowerPoint</span>
+          <span class="chip">Microsoft Excel</span>
+          <span class="chip">Microsoft Word</span>
+          <span class="chip">Organisational planning</span>
+          <span class="chip">Team collaboration</span>
+          <span class="chip">Verbal communication in English</span>
+        </div>
+      </div>
+      <div>
+        <div class="lang-block">
+          <div class="lang-name">English <small>MOTHER TONGUE + FLUENT</small></div>
+          <div class="cefr-row"><span class="cefr-label">Listening</span><div class="cefr-track"><div class="cefr-fill" style="width:100%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C2</span></div>
+          <div class="cefr-row"><span class="cefr-label">Reading</span><div class="cefr-track"><div class="cefr-fill" style="width:100%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C2</span></div>
+          <div class="cefr-row"><span class="cefr-label">Speaking</span><div class="cefr-track"><div class="cefr-fill" style="width:66%"></div></div><span class="cefr-label" style="width:24px;text-align:right">B2</span></div>
+          <div class="cefr-row"><span class="cefr-label">Writing</span><div class="cefr-track"><div class="cefr-fill" style="width:83%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C1</span></div>
+        </div>
+        <div class="lang-block">
+          <div class="lang-name">German <small>A1</small></div>
+          <div class="cefr-row"><span class="cefr-label">All skills</span><div class="cefr-track"><div class="cefr-fill" style="width:16%"></div></div><span class="cefr-label" style="width:24px;text-align:right">A1</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="honours">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Honours, Courses &amp; Certificates</h2>
+      <span class="num">§ 05 / DECORATIONS</span>
+    </div>
+    <div class="seal-grid reveal">
+      <div class="seal">
+        <span class="date">JUN 2025</span>
+        <h5>Gold Medalist</h5>
+        <p>University of Gujrat — highest cGPA in the Bachelor's programme (1st of 80).</p>
+      </div>
+      <div class="seal">
+        <span class="date">JUN 2026</span>
+        <h5>An Introduction to Human Rights</h5>
+        <p>Amnesty International Human Rights Academy.</p>
+      </div>
+      <div class="seal">
+        <span class="date">FEB 2024</span>
+        <h5>Migration and Health</h5>
+        <p>Enhancing Intercultural Competence and Diversity Sensitivity — WHO Regional Office for Europe &amp; University of Exeter.</p>
+      </div>
+      <div class="seal">
+        <span class="date">MAY 2023</span>
+        <h5>The Modern World, Part Two</h5>
+        <p>Global history since 1910 — University of Virginia, Coursera.</p>
+      </div>
+      <div class="seal">
+        <span class="date">FEB 2023</span>
+        <h5>Global Diplomacy</h5>
+        <p>Diplomacy in the modern world — University of London, Coursera.</p>
+      </div>
+      <div class="seal">
+        <span class="date">MAR 2023</span>
+        <h5>Best Delegate</h5>
+        <p>Pakistan National Assembly Model.</p>
+      </div>
+      <div class="seal">
+        <span class="date">MAR 2023</span>
+        <h5>Parliamentary Debate</h5>
+        <p>Certificate of participation.</p>
+      </div>
+      <div class="seal">
+        <span class="date">2018 — 2019</span>
+        <h5>Excellent Academic Achievement</h5>
+      </div>
+      <div class="seal">
+        <span class="date">2015 — 2016</span>
+        <h5>Certificate of Global Citizenship</h5>
+        <p>With a Green Student Certificate and volunteer service at the Pakistan Red Crescent Society.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="network">
+  <div class="wrap">
+    <div class="folio">
+      <h2>Networks &amp; Memberships</h2>
+      <span class="num">§ 06 / AFFILIATIONS</span>
+    </div>
+    <div class="network-list reveal">
+      <div class="network-row">
+        <span class="date">JUL 2025 — CURRENT</span>
+        <div><h5>Associate Member, Multiomics</h5><p>Supporting management tasks, hybrid.</p></div>
+        <a class="ext" href="https://www.linkedin.com/company/wemultiomics/" target="_blank" rel="noopener">linkedin ↗</a>
+      </div>
+      <div class="network-row">
+        <span class="date">JUL 2025 — CURRENT</span>
+        <div><h5>Contributor, Jarida Today Press</h5><p>Writing content across current-affairs niches.</p></div>
+        <a class="ext" href="https://pk.linkedin.com/company/jarida-today-press" target="_blank" rel="noopener">linkedin ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-grid">
+      <h2>Open to research &amp; policy roles across global governance and foreign affairs.</h2>
+      <div class="footer-contacts">
+        <a href="mailto:nawazlaiba2026@gmail.com">nawazlaiba2026@gmail.com</a>
+        <a href="tel:+923496055513">+92 349 6055513</a>
+        <span>Gujrat, Punjab, Pakistan</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>REFERENCES AVAILABLE UPON REQUEST</span>
+      <span>FILE CLOSED — LAIBA NAWAZ © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

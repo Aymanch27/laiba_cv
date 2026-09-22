@@ -3,603 +3,1395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laiba Nawaz — Briefing File</title>
+<title>Laiba Nawaz — Executive Briefing File & Portfolio</title>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,450&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Three.js for 3D Globe -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: {
+            DEFAULT: '#0B1D33',
+            dark: '#071322',
+            card: '#11253E',
+            hover: '#183152',
+            border: 'rgba(237,231,214,0.12)'
+          },
+          paper: {
+            DEFAULT: '#EDE7D6',
+            dim: '#C9C2AC',
+            muted: '#8A99AD'
+          },
+          brass: {
+            DEFAULT: '#BE9A63',
+            light: '#D2B07B',
+            dim: '#8C744F',
+            glow: 'rgba(190, 154, 99, 0.25)'
+          },
+          slate: {
+            DEFAULT: '#7C93AC',
+            dark: '#485C73'
+          },
+          crimson: '#A6402F'
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['IBM Plex Sans', 'sans-serif'],
+          mono: ['IBM Plex Mono', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+
 <style>
-  :root{
-    --ink:#0B1D33;
-    --ink-2:#122747;
-    --ink-3:#1A3358;
-    --paper:#EDE7D6;
-    --paper-dim:#C9C2AC;
-    --brass:#BE9A63;
-    --brass-dim:#8C744F;
-    --slate:#7C93AC;
-    --redline:#A6402F;
-    --line: rgba(237,231,214,0.14);
-
-    --display: 'Fraunces', serif;
-    --body: 'IBM Plex Sans', sans-serif;
-    --mono: 'IBM Plex Mono', monospace;
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #071322;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #8C744F;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #BE9A63;
   }
 
-  *{ margin:0; padding:0; box-sizing:border-box; }
-
-  html{ scroll-behavior:smooth; }
-
-  body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:var(--body);
-    font-weight:300;
-    line-height:1.6;
-    overflow-x:hidden;
+  ::selection {
+    background: #BE9A63;
+    color: #071322;
   }
 
-  ::selection{ background:var(--brass); color:var(--ink); }
-
-  a{ color:inherit; text-decoration:none; }
-
-  .wrap{
-    max-width:1100px;
-    margin:0 auto;
-    padding:0 32px;
+  /* Grid Background Overlay */
+  .bg-grid-pattern {
+    background-image: radial-gradient(circle at 1px 1px, rgba(237,231,214,0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
   }
 
-  /* ---------- texture ---------- */
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(237,231,214,0.045) 1px, transparent 1px);
-    background-size: 26px 26px;
-    pointer-events:none;
-    z-index:0;
+  /* Glassmorphism Utilities */
+  .glass-header {
+    background: rgba(11, 29, 51, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
-  /* ---------- nav ---------- */
-  header.nav{
-    position:fixed; top:0; left:0; right:0;
-    z-index:100;
-    background:rgba(11,29,51,0.86);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-inner{
-    max-width:1100px; margin:0 auto; padding:16px 32px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .nav-mark{
-    font-family:var(--mono); font-size:11px; letter-spacing:0.14em;
-    color:var(--brass); display:flex; align-items:center; gap:10px;
-  }
-  .nav-mark .dot{ width:6px; height:6px; border-radius:50%; background:var(--redline); display:inline-block; }
-  .nav-links{ display:flex; gap:28px; font-family:var(--mono); font-size:11px; letter-spacing:0.1em; }
-  .nav-links a{ color:var(--slate); transition:color .25s ease; text-transform:uppercase; }
-  .nav-links a:hover{ color:var(--paper); }
-  .nav-toggle{ display:none; }
-
-  @media (max-width:720px){
-    .nav-links{ display:none; }
+  .glass-card {
+    background: rgba(17, 37, 62, 0.65);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(237,231,214,0.08);
   }
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex; align-items:center;
-    padding-top:90px;
-    overflow:hidden;
-  }
-  .hero .wrap{
-    position:relative; z-index:2;
-    display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center;
-    width:100%;
-  }
-  @media (max-width:900px){
-    .hero .wrap{ grid-template-columns:1fr; }
-    .hero-globe{ order:-1; }
+  .glass-card:hover {
+    border-color: rgba(190, 154, 99, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 0 15px rgba(190, 154, 99, 0.1);
   }
 
-  .eyebrow{
-    font-family:var(--mono); font-size:11px; letter-spacing:0.2em;
-    color:var(--brass); text-transform:uppercase;
-    display:flex; align-items:center; gap:12px; margin-bottom:26px;
-  }
-  .eyebrow::before{ content:""; width:34px; height:1px; background:var(--brass); }
-
-  h1.name{
-    font-family:var(--display);
-    font-weight:450;
-    font-size:clamp(48px, 7vw, 84px);
-    line-height:0.98;
-    letter-spacing:-0.01em;
-    color:var(--paper);
-  }
-  h1.name em{
-    font-style:italic; font-weight:300; color:var(--slate);
-    display:block; font-size:0.42em; letter-spacing:0.02em; margin-top:14px;
+  /* Stamp Badge */
+  .official-stamp {
+    border: 1.5px solid #A6402F;
+    color: #A6402F;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.15em;
+    padding: 6px 14px;
+    transform: rotate(-2deg);
+    display: inline-block;
+    box-shadow: 0 0 8px rgba(166, 64, 47, 0.15);
   }
 
-  .motto{
-    font-family:var(--display); font-style:italic; font-weight:300;
-    font-size:19px; color:var(--paper-dim);
-    max-width:480px; margin-top:26px;
-    border-left:2px solid var(--brass-dim); padding-left:18px;
+  /* Keyframe Animations */
+  @keyframes pulseGlow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
   }
 
-  .hero-meta{
-    margin-top:38px; display:flex; flex-wrap:wrap; gap:10px 0;
-    font-family:var(--mono); font-size:11.5px; color:var(--slate);
-  }
-  .hero-meta span{ padding:0 16px; border-right:1px solid var(--line); }
-  .hero-meta span:first-child{ padding-left:0; }
-  .hero-meta span:last-child{ border-right:none; }
-
-  .hero-cta{ margin-top:40px; display:flex; gap:16px; flex-wrap:wrap; }
-  .btn{
-    font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
-    padding:14px 26px; border:1px solid var(--brass); color:var(--paper);
-    transition:all .25s ease; display:inline-block;
-  }
-  .btn:hover{ background:var(--brass); color:var(--ink); }
-  .btn.ghost{ border-color:var(--line); color:var(--slate); }
-  .btn.ghost:hover{ border-color:var(--slate); background:transparent; color:var(--paper); }
-
-  /* ---------- globe ---------- */
-  .hero-globe{ position:relative; display:flex; justify-content:center; }
-  .hero-globe svg{ width:100%; max-width:440px; height:auto; }
-  .globe-spin{ transform-origin:210px 210px; animation:spin 90s linear infinite; }
-  @keyframes spin{ from{ transform:rotate(0deg);} to{ transform:rotate(360deg);} }
-  .globe-pin{ animation:pulse 2.6s ease-in-out infinite; transform-origin:center; }
-  .globe-pin.p2{ animation-delay:.5s; }
-  .globe-pin.p3{ animation-delay:1s; }
-  @keyframes pulse{ 0%,100%{ opacity:.35; } 50%{ opacity:1; } }
-  .coord-label{ font-family:var(--mono); font-size:9px; fill:var(--slate); letter-spacing:.05em; }
-
-  @media (prefers-reduced-motion: reduce){
-    .globe-spin{ animation:none; }
-    .globe-pin{ animation:none; opacity:.9; }
+  .animate-pulse-glow {
+    animation: pulseGlow 4s ease-in-out infinite;
   }
 
-  /* ---------- section shell ---------- */
-  section{ position:relative; z-index:1; padding:110px 0 40px; border-top:1px solid var(--line); }
-  section:first-of-type{ border-top:none; }
-
-  .folio{
-    display:flex; align-items:baseline; justify-content:space-between;
-    margin-bottom:56px; gap:20px; flex-wrap:wrap;
+  /* Modal Backdrop Transition */
+  .modal-backdrop {
+    transition: opacity 0.3s ease;
   }
-  .folio h2{
-    font-family:var(--display); font-weight:450; font-size:clamp(28px,3.6vw,40px);
-    color:var(--paper);
+  
+  .modal-content {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .folio .num{
-    font-family:var(--mono); font-size:12px; color:var(--brass-dim); letter-spacing:.1em;
-  }
-
-  /* ---------- about ---------- */
-  .about-grid{
-    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px;
-  }
-  @media (max-width:800px){ .about-grid{ grid-template-columns:1fr; gap:36px; } }
-  .about-lede{
-    font-family:var(--display); font-style:italic; font-weight:300;
-    font-size:24px; line-height:1.5; color:var(--paper);
-  }
-  .about-body p{ color:var(--paper-dim); font-size:15.5px; margin-bottom:16px; }
-  .stamp{
-    margin-top:28px; display:inline-block;
-    border:1px solid var(--redline); color:var(--redline);
-    font-family:var(--mono); font-size:10.5px; letter-spacing:.14em;
-    padding:8px 14px; transform:rotate(-2deg); text-transform:uppercase;
-  }
-
-  /* ---------- timeline (education) ---------- */
-  .cable{
-    position:relative; padding-left:32px; border-left:1px solid var(--line);
-  }
-  .entry{ position:relative; padding-bottom:44px; }
-  .entry:last-child{ padding-bottom:0; }
-  .entry::before{
-    content:""; position:absolute; left:-37px; top:4px;
-    width:9px; height:9px; border-radius:50%;
-    background:var(--ink); border:1px solid var(--brass);
-  }
-  .entry .date{
-    font-family:var(--mono); font-size:11px; color:var(--brass);
-    letter-spacing:.06em; margin-bottom:8px; display:block;
-  }
-  .entry h3{
-    font-family:var(--display); font-weight:450; font-size:21px; color:var(--paper);
-    margin-bottom:4px;
-  }
-  .entry .place{ font-family:var(--mono); font-size:11px; color:var(--slate); margin-bottom:10px; display:block; }
-  .entry p{ color:var(--paper-dim); font-size:14.5px; max-width:620px; }
-  .entry .tag{
-    display:inline-block; margin-top:10px; font-family:var(--mono); font-size:10.5px;
-    color:var(--ink); background:var(--paper-dim); padding:3px 9px; letter-spacing:.05em;
-  }
-
-  /* ---------- experience two-col ---------- */
-  .exp-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; }
-  @media (max-width:800px){ .exp-grid{ grid-template-columns:1fr; gap:44px; } }
-  .exp-col h4{
-    font-family:var(--mono); font-size:12px; color:var(--brass); letter-spacing:.14em;
-    text-transform:uppercase; margin-bottom:24px; padding-bottom:10px; border-bottom:1px solid var(--line);
-  }
-  .exp-item{ margin-bottom:26px; }
-  .exp-item .date{ font-family:var(--mono); font-size:10.5px; color:var(--slate); display:block; margin-bottom:4px; }
-  .exp-item h5{ font-family:var(--display); font-size:17px; font-weight:450; color:var(--paper); margin-bottom:5px; }
-  .exp-item p{ font-size:14px; color:var(--paper-dim); }
-  .exp-item a.ext{ font-family:var(--mono); font-size:10.5px; color:var(--brass); border-bottom:1px dotted var(--brass-dim); }
-
-  /* ---------- skills ---------- */
-  .skills-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; }
-  @media (max-width:800px){ .skills-grid{ grid-template-columns:1fr; gap:44px; } }
-  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; }
-  .chip{
-    font-family:var(--mono); font-size:12px; color:var(--paper-dim);
-    border:1px solid var(--line); padding:9px 15px; letter-spacing:.02em;
-    transition:border-color .2s ease, color .2s ease;
-  }
-  .chip:hover{ border-color:var(--brass); color:var(--paper); }
-
-  .lang-block{ margin-bottom:26px; }
-  .lang-block .lang-name{
-    font-family:var(--display); font-size:18px; color:var(--paper); margin-bottom:12px;
-    display:flex; justify-content:space-between; align-items:baseline;
-  }
-  .lang-name small{ font-family:var(--mono); font-size:10px; color:var(--slate); letter-spacing:.1em; }
-  .cefr-row{ display:flex; gap:6px; margin-bottom:6px; align-items:center; }
-  .cefr-label{ width:120px; font-family:var(--mono); font-size:10px; color:var(--slate); }
-  .cefr-track{ flex:1; height:5px; background:var(--ink-2); position:relative; }
-  .cefr-fill{ height:100%; background:var(--brass); }
-
-  /* ---------- honours & certs ---------- */
-  .seal-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; }
-  .seal{
-    border:1px solid var(--line); padding:22px; position:relative;
-    transition:border-color .2s ease, transform .2s ease;
-  }
-  .seal:hover{ border-color:var(--brass-dim); transform:translateY(-3px); }
-  .seal .date{ font-family:var(--mono); font-size:10px; color:var(--slate); display:block; margin-bottom:10px; }
-  .seal h5{ font-family:var(--display); font-size:16px; color:var(--paper); font-weight:450; margin-bottom:6px; }
-  .seal p{ font-size:12.5px; color:var(--paper-dim); }
-
-  /* ---------- network ---------- */
-  .network-list{ border-top:1px solid var(--line); }
-  .network-row{
-    display:grid; grid-template-columns:140px 1fr auto; gap:20px; align-items:center;
-    padding:22px 0; border-bottom:1px solid var(--line);
-  }
-  @media (max-width:700px){ .network-row{ grid-template-columns:1fr; gap:6px; } }
-  .network-row .date{ font-family:var(--mono); font-size:11px; color:var(--brass); }
-  .network-row h5{ font-family:var(--display); font-size:18px; color:var(--paper); font-weight:450; }
-  .network-row p{ font-size:13px; color:var(--paper-dim); margin-top:2px; }
-  .network-row a{ font-family:var(--mono); font-size:11px; color:var(--slate); border-bottom:1px dotted var(--slate); white-space:nowrap; }
-  .network-row a:hover{ color:var(--brass); border-color:var(--brass); }
-
-  /* ---------- footer / contact ---------- */
-  footer{
-    padding:100px 0 60px; border-top:1px solid var(--line); position:relative; z-index:1;
-  }
-  .footer-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:40px; align-items:end; }
-  @media (max-width:800px){ .footer-grid{ grid-template-columns:1fr; } }
-  footer h2{
-    font-family:var(--display); font-weight:450; font-size:clamp(32px,5vw,54px); color:var(--paper);
-    line-height:1.05;
-  }
-  .footer-contacts{ display:flex; flex-direction:column; gap:14px; font-family:var(--mono); font-size:13px; }
-  .footer-contacts a{ color:var(--paper-dim); transition:color .2s ease; }
-  .footer-contacts a:hover{ color:var(--brass); }
-  .footer-bottom{
-    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
-    font-family:var(--mono); font-size:10.5px; color:var(--slate); letter-spacing:.06em;
-  }
-
-  /* ---------- reveal ---------- */
-  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
 </style>
 </head>
-<body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="nav-mark"><span class="dot"></span> FILE NO. IR-2025 / LAIBA NAWAZ</div>
-    <nav class="nav-links">
-      <a href="#file">File</a>
-      <a href="#education">Education</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#honours">Honours</a>
-      <a href="#network">Network</a>
-      <a href="#contact">Contact</a>
+<body class="bg-ink-dark text-paper font-body antialiased selection:bg-brass selection:text-ink-dark bg-grid-pattern relative min-h-screen">
+
+<!-- TOP HEADER / NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-header border-b border-ink-border transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    
+    <!-- Left: Classification & Name -->
+    <a href="#hero" class="flex items-center gap-3 group">
+      <span class="w-2.5 h-2.5 rounded-full bg-crimson animate-pulse"></span>
+      <div class="font-mono text-xs tracking-widest text-brass group-hover:text-brass-light transition-colors">
+        <span class="font-semibold text-paper">FILE NO. IR-2026</span>
+        <span class="text-slate mx-1.5">|</span>
+        <span>LAIBA NAWAZ</span>
+      </div>
+    </a>
+
+    <!-- Middle: Navigation Links (Desktop) -->
+    <nav class="hidden md:flex items-center gap-6 font-mono text-xs tracking-wider uppercase text-slate">
+      <a href="#about" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Profile</a>
+      <a href="#education" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Education</a>
+      <a href="#experience" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Experience</a>
+      <a href="#skills" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Competencies</a>
+      <a href="#honours" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Certificates</a>
+      <a href="#network" class="hover:text-paper transition-colors py-1 hover:border-b hover:border-brass">Network</a>
     </nav>
+
+    <!-- Right Actions: Search Trigger & Contact Button -->
+    <div class="flex items-center gap-3">
+      <button id="searchTriggerBtn" class="flex items-center gap-2 bg-ink/80 hover:bg-ink-card border border-ink-border text-paper-dim hover:text-brass px-3 py-1.5 rounded-md text-xs font-mono transition-all" title="Search dossier (Ctrl + K)">
+        <i class="fas fa-search text-xs"></i>
+        <span class="hidden sm:inline">Search File...</span>
+        <kbd class="hidden lg:inline bg-ink-dark px-1.5 py-0.5 rounded text-[10px] text-slate border border-ink-border">⌘K</kbd>
+      </button>
+
+      <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-brass/10 hover:bg-brass/20 text-brass border border-brass/40 px-3.5 py-1.5 rounded-md font-mono text-xs uppercase tracking-wider transition-all hover:scale-105">
+        <i class="fas fa-paper-plane text-xs"></i>
+        <span>Inquire</span>
+      </a>
+
+      <!-- Mobile Menu Toggle -->
+      <button id="mobileMenuBtn" class="md:hidden text-paper hover:text-brass p-2 focus:outline-none">
+        <i class="fas fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobileMenu" class="hidden md:hidden border-t border-ink-border bg-ink-dark/95 backdrop-blur-md px-6 py-4 flex flex-col gap-3 font-mono text-xs">
+    <a href="#about" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 01 / PROFILE</a>
+    <a href="#education" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 02 / EDUCATION</a>
+    <a href="#experience" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 03 / FIELD LOG</a>
+    <a href="#skills" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 04 / COMPETENCIES</a>
+    <a href="#honours" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 05 / CERTIFICATES</a>
+    <a href="#network" class="text-slate hover:text-paper py-2 border-b border-ink-border/50">§ 06 / NETWORK</a>
+    <a href="#contact" class="text-brass py-2 font-semibold">§ 07 / CONTACT DIRECTORY</a>
   </div>
 </header>
 
-<section class="hero" id="file">
-  <div class="wrap">
-    <div class="hero-copy">
-      <div class="eyebrow">Briefing File — International Relations</div>
-      <h1 class="name">Laiba<br>Nawaz<em>Decoding global dynamics, one policy file at a time.</em></h1>
-      <p class="motto">"Decoding Global Dynamics, Designing Policy Pathways, Driving International Progress."</p>
-      <div class="hero-meta">
-        <span>Gujrat, Pakistan</span>
-        <span>32.5738°N 74.0789°E</span>
-        <span>BS International Relations, 3.9/4.0</span>
-        <span>English C2 · German A1</span>
-      </div>
-      <div class="hero-cta">
-        <a class="btn" href="#education">Open the file</a>
-        <a class="btn ghost" href="#contact">Request contact</a>
-      </div>
+<!-- SEARCH MODAL OVERLAY -->
+<div id="searchModal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-ink-dark/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-200">
+  <div class="bg-ink-card border border-brass/40 rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl modal-content">
+    <div class="p-4 border-b border-ink-border flex items-center gap-3">
+      <i class="fas fa-search text-brass"></i>
+      <input type="text" id="searchInput" placeholder="Search keywords (e.g., 'Germany', 'Gold Medalist', 'Policy', 'Amnesty')..." 
+             class="w-full bg-transparent text-paper placeholder-slate font-mono text-sm focus:outline-none" autofocus>
+      <button id="closeSearchBtn" class="text-slate hover:text-paper font-mono text-xs px-2 py-1 rounded bg-ink border border-ink-border">ESC</button>
     </div>
+    
+    <!-- Search Results Container -->
+    <div id="searchResults" class="max-h-96 overflow-y-auto p-4 flex flex-col gap-2 font-body text-sm">
+      <div class="text-slate font-mono text-xs p-3 text-center">Type to search dossier contents...</div>
+    </div>
+  </div>
+</div>
 
-    <div class="hero-globe">
-      <svg viewBox="0 0 420 420" role="img" aria-label="Stylised globe marking Gujrat, Berlin and London">
-        <circle cx="210" cy="210" r="150" fill="none" stroke="var(--line)" stroke-width="1"/>
-        <g class="globe-spin">
-          <ellipse cx="210" cy="210" rx="150" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
-          <ellipse cx="210" cy="210" rx="150" ry="60" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
-          <ellipse cx="210" cy="210" rx="150" ry="105" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
-          <ellipse cx="210" cy="210" rx="60" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
-          <ellipse cx="210" cy="210" rx="105" ry="150" fill="none" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.4"/>
-          <line x1="60" y1="210" x2="360" y2="210" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
-          <line x1="210" y1="60" x2="210" y2="360" stroke="var(--brass-dim)" stroke-width="0.6" opacity="0.5"/>
-        </g>
+<!-- HERO SECTION -->
+<section id="hero" class="relative min-h-screen pt-28 pb-16 flex items-center overflow-hidden border-b border-ink-border">
+  
+  <!-- Subtle Ambient Glow -->
+  <div class="absolute top-1/4 left-10 w-96 h-96 bg-brass/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
 
-        <path d="M 246 236 Q 220 150 150 120" fill="none" stroke="var(--brass)" stroke-width="1" stroke-dasharray="3 5" opacity="0.7"/>
-        <path d="M 246 236 Q 200 130 110 150" fill="none" stroke="var(--brass)" stroke-width="1" stroke-dasharray="3 5" opacity="0.5"/>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Hero Left Column: Copy -->
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        
+        <!-- Eyebrow Tag -->
+        <div class="inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-brass">
+          <span class="w-8 h-px bg-brass"></span>
+          <span>Executive Briefing File — International Relations</span>
+        </div>
 
-        <circle class="globe-pin" cx="246" cy="236" r="4.5" fill="var(--redline)"/>
-        <text x="256" y="240" class="coord-label">GUJRAT</text>
+        <!-- Main Title & Motto -->
+        <div>
+          <h1 class="font-display font-medium text-5xl sm:text-7xl lg:text-8xl text-paper tracking-tight leading-tight">
+            Laiba<br>
+            <span class="text-slate font-light italic text-4xl sm:text-6xl block mt-1">Nawaz</span>
+          </h1>
+          <p class="font-display italic text-paper-dim text-lg sm:text-xl max-w-2xl mt-4 border-l-2 border-brass/60 pl-4 py-1 leading-relaxed">
+            "Decoding Global Dynamics, Designing Policy Pathways, Driving International Progress."
+          </p>
+        </div>
 
-        <circle class="globe-pin p2" cx="150" cy="120" r="3.5" fill="var(--paper)"/>
-        <text x="158" y="116" class="coord-label">BERLIN</text>
+        <!-- Meta Details Tags -->
+        <div class="flex flex-wrap gap-2 sm:gap-4 font-mono text-xs text-slate py-2">
+          <div class="bg-ink/80 border border-ink-border px-3 py-1.5 rounded-md flex items-center gap-2">
+            <i class="fas fa-map-marker-alt text-brass"></i> Gujrat, Pakistan
+          </div>
+          <div class="bg-ink/80 border border-ink-border px-3 py-1.5 rounded-md flex items-center gap-2">
+            <i class="fas fa-compass text-brass"></i> 32.5738° N, 74.0789° E
+          </div>
+          <div class="bg-ink/80 border border-ink-border px-3 py-1.5 rounded-md flex items-center gap-2">
+            <i class="fas fa-graduation-cap text-brass"></i> BS IR (3.9 / 4.0)
+          </div>
+          <div class="bg-ink/80 border border-ink-border px-3 py-1.5 rounded-md flex items-center gap-2">
+            <i class="fas fa-language text-brass"></i> English C2 · German A1
+          </div>
+        </div>
 
-        <circle class="globe-pin p3" cx="110" cy="150" r="3.5" fill="var(--paper)"/>
-        <text x="70" y="168" class="coord-label">LONDON</text>
-      </svg>
+        <!-- Hero Actions -->
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a href="#about" class="bg-brass hover:bg-brass-light text-ink-dark font-mono font-semibold text-xs uppercase tracking-wider px-6 py-3.5 rounded-md transition-all shadow-lg shadow-brass/10 flex items-center gap-2 hover:scale-105">
+            <i class="fas fa-folder-open"></i>
+            <span>Open Briefing File</span>
+          </a>
+          <button id="downloadResumeBtn" class="bg-ink-card hover:bg-ink-hover border border-brass/30 text-paper hover:text-brass font-mono text-xs uppercase tracking-wider px-6 py-3.5 rounded-md transition-all flex items-center gap-2">
+            <i class="fas fa-download text-brass"></i>
+            <span>Download Summary CV</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Hero Right Column: 3D Interactive Globe Container -->
+      <div class="lg:col-span-5 relative flex flex-col items-center justify-center">
+        <div class="relative w-full aspect-square max-w-md mx-auto">
+          <!-- Canvas for Three.js Globe -->
+          <div id="globeCanvasContainer" class="w-full h-full rounded-full cursor-grab active:cursor-grabbing overflow-hidden border border-brass/20 shadow-2xl relative">
+            <!-- Globe HUD Overlay Overlay -->
+            <div class="absolute inset-0 pointer-events-none border border-brass/10 rounded-full"></div>
+            <div class="absolute top-4 left-4 font-mono text-[10px] text-brass/70 tracking-widest uppercase">
+              <i class="fas fa-globe-americas mr-1"></i> Interactive Geospatial Sphere
+            </div>
+            <div class="absolute bottom-4 right-4 font-mono text-[10px] text-slate/70">
+              Drag to Rotate • Click Pins
+            </div>
+          </div>
+        </div>
+
+        <!-- Globe Location Legend -->
+        <div class="flex items-center justify-center gap-6 mt-4 font-mono text-xs text-slate">
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-crimson"></span> Gujrat (Home)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brass"></span> Berlin (Geopolitics Thesis)</span>
+          <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-paper"></span> London (Diplomacy)</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="about">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Subject Summary</h2>
-      <span class="num">§ 01 / ABOUT</span>
+<!-- SECTION 01: ABOUT / SUMMARY -->
+<section id="about" class="py-20 border-b border-ink-border relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-12 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Subject Profile &amp; Summary</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 01 / BRIEFING DOSSIER</span>
     </div>
-    <div class="about-grid reveal">
-      <p class="about-lede">Reads borders as arguments — trained to trace how geography, institutions and policy design quietly decide who holds power.</p>
-      <div class="about-body">
-        <p>International Relations graduate specialising in political analysis, global governance, foreign policy, international law and international affairs. Comfortable moving between policy research, critical analysis, and the evaluation of how international organisations shape cooperation and decision-making.</p>
-        <p>Thesis work examined geography as a determinant of power, tracing how Germany's position on the map shaped its global affairs from 1900 to the present decade — a lens that now runs through most of her research questions.</p>
-        <p>Motivated to bring evidence-based insight to research and policy work through analytical thinking and an interdisciplinary approach that treats history, geography and institutions as one connected system.</p>
-        <span class="stamp">Gold Medalist · Rank 1 / 80</span>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      
+      <!-- Highlight Lede -->
+      <div class="lg:col-span-5">
+        <p class="font-display italic text-2xl text-paper leading-relaxed border-l-2 border-brass pl-6 py-2">
+          Reads borders as arguments — trained to trace how geography, institutions, and policy design quietly decide who holds power in international relations.
+        </p>
+        
+        <!-- Official Recognition Stamp -->
+        <div class="mt-8">
+          <div class="official-stamp rounded-sm">
+            <i class="fas fa-award mr-2"></i>GOLD MEDALIST · RANK 1 / 80
+          </div>
+        </div>
       </div>
+
+      <!-- Main Profile Copy -->
+      <div class="lg:col-span-7 flex flex-col gap-6 text-paper-dim text-base leading-relaxed font-body">
+        <p class="glass-card p-6 rounded-lg">
+          International Relations graduate specialising in political analysis, global governance, foreign policy, international law, and international affairs. Comfortable moving seamlessly between high-level policy research, critical diplomatic analysis, and the evaluation of how international organisations shape modern cooperation and decision-making.
+        </p>
+        <p class="glass-card p-6 rounded-lg">
+          Thesis work examined <strong class="text-paper">geography as a determinant of power</strong>, tracing how Germany's strategic position on the map shaped its global affairs from 1900 to the current decade — a analytical lens that now runs through her entire portfolio of policy questions.
+        </p>
+        <p class="glass-card p-6 rounded-lg">
+          Motivated to bring evidence-based insight to research and policy institutions through rigorous analytical thinking and an interdisciplinary framework that treats history, geography, and international institutions as a unified system.
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="education">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Education &amp; Training</h2>
-      <span class="num">§ 02 / RECORD</span>
+<!-- SECTION 02: EDUCATION -->
+<section id="education" class="py-20 border-b border-ink-border bg-ink/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-12 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Academic Record</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 02 / ACADEMIC CHRONOLOGY</span>
     </div>
-    <div class="cable reveal">
-      <div class="entry">
-        <span class="date">NOV 2021 — JUN 2025 · GUJRAT, PAKISTAN</span>
-        <h3>BS in International Relations</h3>
-        <span class="place">University of Gujrat</span>
-        <p>Final grade 3.9 / 4.0. Thesis: "Geography as a determinant of power: analyzing the impact of Germany's geography on its global affairs from 1900 to the current decade."</p>
-        <span class="tag">Gold Medalist — highest cGPA, 1st of 80</span>
+
+    <!-- Timeline Wrapper -->
+    <div class="relative pl-6 sm:pl-10 border-l border-brass/30 flex flex-col gap-12">
+      
+      <!-- Entry 1: BS IR -->
+      <div class="relative group">
+        <!-- Timeline Marker -->
+        <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-ink-dark border-2 border-brass group-hover:bg-brass transition-colors"></div>
+        
+        <div class="glass-card p-6 sm:p-8 rounded-xl relative transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs text-brass tracking-wider">NOV 2021 — JUN 2025 · GUJRAT, PAKISTAN</span>
+            <span class="bg-brass/20 text-brass text-xs font-mono px-3 py-1 rounded-full border border-brass/30">cGPA: 3.9 / 4.0</span>
+          </div>
+
+          <h3 class="font-display text-2xl text-paper font-semibold mb-1">Bachelor of Science in International Relations</h3>
+          <div class="font-mono text-sm text-slate mb-4">University of Gujrat</div>
+
+          <p class="text-paper-dim text-sm mb-4">
+            Graduated with the highest academic distinction across the department. Focused on strategic studies, geopolitics, and international organizations.
+          </p>
+
+          <!-- Key Thesis Highlight Box -->
+          <div class="bg-ink/80 border border-brass/30 rounded-lg p-4 mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="font-mono text-[10px] text-brass uppercase tracking-widest block mb-1">UNDERGRADUATE THESIS</span>
+              <p class="text-sm font-display italic text-paper">
+                "Geography as a determinant of power: analyzing the impact of Germany's geography on its global affairs from 1900 to the current decade."
+              </p>
+            </div>
+            <button onclick="openThesisModal()" class="shrink-0 bg-brass/10 hover:bg-brass/30 text-brass border border-brass/40 px-3.5 py-2 rounded font-mono text-xs uppercase tracking-wider transition-colors flex items-center gap-2">
+              <i class="fas fa-book-open"></i> View Thesis Note
+            </button>
+          </div>
+
+          <div class="inline-flex items-center gap-2 bg-crimson/20 border border-crimson/40 text-paper text-xs font-mono px-3 py-1.5 rounded">
+            <i class="fas fa-medal text-crimson"></i> Gold Medalist — Highest cGPA (Rank 1 of 80 Students)
+          </div>
+        </div>
       </div>
-      <div class="entry">
-        <span class="date">SEP 2019 — AUG 2021 · GUJRAT, PAKISTAN</span>
-        <h3>A Levels</h3>
-        <span class="place">Lahore Grammar School</span>
+
+      <!-- Entry 2: A Levels -->
+      <div class="relative group">
+        <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-ink-dark border-2 border-brass/50 group-hover:bg-brass transition-colors"></div>
+        
+        <div class="glass-card p-6 sm:p-8 rounded-xl transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs text-brass tracking-wider">SEP 2019 — AUG 2021 · GUJRAT, PAKISTAN</span>
+            <span class="font-mono text-xs text-slate">A Levels</span>
+          </div>
+          <h3 class="font-display text-xl text-paper font-semibold mb-1">Cambridge International A Levels</h3>
+          <div class="font-mono text-sm text-slate">Lahore Grammar School</div>
+        </div>
       </div>
-      <div class="entry">
-        <span class="date">AUG 2017 — AUG 2019 · GUJRAT, PAKISTAN</span>
-        <h3>IGCSE</h3>
-        <span class="place">Roots Millennium School, Jinnah Campus Gujrat</span>
-        <p>Final grade: 2 A*, 5 A.</p>
+
+      <!-- Entry 3: IGCSE -->
+      <div class="relative group">
+        <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-4 h-4 rounded-full bg-ink-dark border-2 border-brass/50 group-hover:bg-brass transition-colors"></div>
+        
+        <div class="glass-card p-6 sm:p-8 rounded-xl transition-all">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs text-brass tracking-wider">AUG 2017 — AUG 2019 · GUJRAT, PAKISTAN</span>
+            <span class="font-mono text-xs text-brass">Result: 2 A*, 5 A</span>
+          </div>
+          <h3 class="font-display text-xl text-paper font-semibold mb-1">IGCSE Certification</h3>
+          <div class="font-mono text-sm text-slate">Roots Millennium School, Jinnah Campus Gujrat</div>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<section id="experience">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Field Experience</h2>
-      <span class="num">§ 03 / ACTIVITY LOG</span>
+<!-- SECTION 03: EXPERIENCE & ACTIVITY LOG -->
+<section id="experience" class="py-20 border-b border-ink-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Field Experience &amp; Engagements</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 03 / ACTIVITY LOG</span>
     </div>
-    <div class="exp-grid reveal">
-      <div class="exp-col">
-        <h4>Roles</h4>
-        <div class="exp-item">
-          <span class="date">JAN 2022 — JAN 2025 · GUJRAT</span>
-          <h5>Volunteer, Pakistan Muslim League (Q)</h5>
-          <p>Assisted with event management and community outreach, while observing policy development processes and organisational strategy up close.</p>
+
+    <!-- Category Filter Chips -->
+    <div class="flex flex-wrap gap-2 mb-8 font-mono text-xs">
+      <button class="exp-filter-btn active bg-brass text-ink-dark px-4 py-1.5 rounded-full font-semibold transition-all" data-category="all">
+        All Logs (6)
+      </button>
+      <button class="exp-filter-btn bg-ink-card hover:bg-ink-hover border border-ink-border text-paper-dim px-4 py-1.5 rounded-full transition-all" data-category="role">
+        Field Roles
+      </button>
+      <button class="exp-filter-btn bg-ink-card hover:bg-ink-hover border border-ink-border text-paper-dim px-4 py-1.5 rounded-full transition-all" data-category="bootcamp">
+        Bootcamps &amp; Seminars
+      </button>
+      <button class="exp-filter-btn bg-ink-card hover:bg-ink-hover border border-ink-border text-paper-dim px-4 py-1.5 rounded-full transition-all" data-category="award">
+        Honors &amp; Writing
+      </button>
+    </div>
+
+    <!-- Experience Cards Grid -->
+    <div id="experienceGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Exp 1 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="role">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>JAN 2022 — JAN 2025</span>
+            <span class="bg-brass/10 text-brass px-2 py-0.5 rounded border border-brass/20">Role</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">Volunteer</h4>
+          <div class="font-mono text-xs text-brass mb-3">Pakistan Muslim League (Q)</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Assisted with event management and community outreach, while observing political policy development processes and organizational strategy up close.
+          </p>
         </div>
-        <div class="exp-item">
-          <span class="date">MAY 2024 · GUJRAT</span>
-          <h5>Youth Internship, Punjab Police</h5>
-          <p>Gained direct insight into how the department is managed and operates day to day.</p>
-        </div>
-        <div class="exp-item">
-          <span class="date">MAY 2025 — JUN 2025 · VIRTUAL</span>
-          <h5>Content Writing Intern, Insider.pvt</h5>
-          <p>Wrote and shaped content across current-affairs topics.</p>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-map-marker-alt text-brass"></i> Gujrat, Pakistan
         </div>
       </div>
-      <div class="exp-col">
-        <h4>Bootcamps &amp; Seminars</h4>
-        <div class="exp-item">
-          <span class="date">MAR — APR 2025 · ONLINE</span>
-          <h5>Ultimate Research Bootcamp</h5>
-          <p>Multiomics.</p>
+
+      <!-- Exp 2 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="role">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>MAY 2024</span>
+            <span class="bg-brass/10 text-brass px-2 py-0.5 rounded border border-brass/20">Role</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">Youth Internship</h4>
+          <div class="font-mono text-xs text-brass mb-3">Punjab Police Department</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Gained direct insight into law enforcement management, institutional governance, and day-to-day administrative operations.
+          </p>
         </div>
-        <div class="exp-item">
-          <span class="date">NOV 2023 · GUJRAT</span>
-          <h5>Innovative Skills in Journalism</h5>
-        </div>
-        <div class="exp-item">
-          <span class="date">SEP 2023</span>
-          <h5>3rd Place, Essay Writing</h5>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-map-marker-alt text-brass"></i> Gujrat, Pakistan
         </div>
       </div>
+
+      <!-- Exp 3 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="role">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>MAY 2025 — JUN 2025</span>
+            <span class="bg-brass/10 text-brass px-2 py-0.5 rounded border border-brass/20">Role</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">Content Writing Intern</h4>
+          <div class="font-mono text-xs text-brass mb-3">Insider.pvt</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Researched and drafted analytical content covering global current affairs, geopolitical shifts, and socio-economic policies.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-globe text-brass"></i> Virtual / Remote
+        </div>
+      </div>
+
+      <!-- Exp 4 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="bootcamp">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>MAR — APR 2025</span>
+            <span class="bg-slate/10 text-slate px-2 py-0.5 rounded border border-slate/20">Bootcamp</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">Ultimate Research Bootcamp</h4>
+          <div class="font-mono text-xs text-brass mb-3">Multiomics Initiative</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Advanced training in interdisciplinary research methodologies, qualitative data structures, and scientific publication standards.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-laptop text-brass"></i> Online Seminar
+        </div>
+      </div>
+
+      <!-- Exp 5 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="bootcamp">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>NOV 2023</span>
+            <span class="bg-slate/10 text-slate px-2 py-0.5 rounded border border-slate/20">Seminar</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">Innovative Skills in Journalism</h4>
+          <div class="font-mono text-xs text-brass mb-3">Media &amp; Policy Workshop</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Practical seminar focused on investigative writing, fact-checking methodologies, and ethical media reporting in international relations.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-map-marker-alt text-brass"></i> Gujrat, Pakistan
+        </div>
+      </div>
+
+      <!-- Exp 6 -->
+      <div class="exp-card glass-card p-6 rounded-xl flex flex-col justify-between" data-category="award">
+        <div>
+          <div class="flex items-center justify-between font-mono text-xs text-slate mb-3">
+            <span>SEP 2023</span>
+            <span class="bg-crimson/10 text-crimson px-2 py-0.5 rounded border border-crimson/20">Award</span>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold mb-1">3rd Place — Essay Writing</h4>
+          <div class="font-mono text-xs text-brass mb-3">Academic Competition</div>
+          <p class="text-paper-dim text-xs leading-relaxed">
+            Awarded top placement for an essay analyzing contemporary foreign policy challenges and regional security structures.
+          </p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border flex items-center gap-2 font-mono text-[10px] text-slate">
+          <i class="fas fa-trophy text-brass"></i> Regional Academic Level
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section id="skills">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Working Skills</h2>
-      <span class="num">§ 04 / CAPABILITIES</span>
+<!-- SECTION 04: COMPETENCIES & LANGUAGES -->
+<section id="skills" class="py-20 border-b border-ink-border bg-ink/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-12 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Capabilities &amp; Language Matrix</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 04 / COMPETENCIES</span>
     </div>
-    <div class="skills-grid reveal">
-      <div>
-        <div class="chip-row">
-          <span class="chip">Policy research &amp; writing</span>
-          <span class="chip">Foreign affairs analysis</span>
-          <span class="chip">Project management</span>
-          <span class="chip">Microsoft PowerPoint</span>
-          <span class="chip">Microsoft Excel</span>
-          <span class="chip">Microsoft Word</span>
-          <span class="chip">Organisational planning</span>
-          <span class="chip">Team collaboration</span>
-          <span class="chip">Verbal communication in English</span>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      
+      <!-- Left Column: Skill Matrix -->
+      <div class="lg:col-span-7 flex flex-col gap-6">
+        <h3 class="font-mono text-xs uppercase tracking-widest text-brass flex items-center gap-2">
+          <i class="fas fa-sliders-h"></i> Core Skill Capabilities
+        </h3>
+
+        <!-- Interactive Skill List -->
+        <div class="flex flex-col gap-4">
+          
+          <div class="glass-card p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-1 font-mono text-xs">
+              <span class="text-paper font-semibold">Policy Research &amp; Analysis</span>
+              <span class="text-brass">Advanced (95%)</span>
+            </div>
+            <div class="w-full h-1.5 bg-ink rounded-full overflow-hidden">
+              <div class="h-full bg-brass rounded-full" style="width: 95%;"></div>
+            </div>
+          </div>
+
+          <div class="glass-card p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-1 font-mono text-xs">
+              <span class="text-paper font-semibold">Foreign Policy Evaluation</span>
+              <span class="text-brass">Advanced (90%)</span>
+            </div>
+            <div class="w-full h-1.5 bg-ink rounded-full overflow-hidden">
+              <div class="h-full bg-brass rounded-full" style="width: 90%;"></div>
+            </div>
+          </div>
+
+          <div class="glass-card p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-1 font-mono text-xs">
+              <span class="text-paper font-semibold">Project Management &amp; Planning</span>
+              <span class="text-brass">Proficient (85%)</span>
+            </div>
+            <div class="w-full h-1.5 bg-ink rounded-full overflow-hidden">
+              <div class="h-full bg-brass rounded-full" style="width: 85%;"></div>
+            </div>
+          </div>
+
+          <div class="glass-card p-4 rounded-lg">
+            <div class="flex justify-between items-center mb-1 font-mono text-xs">
+              <span class="text-paper font-semibold">Technical Tools (Word, Excel, PowerPoint)</span>
+              <span class="text-brass">Expert (92%)</span>
+            </div>
+            <div class="w-full h-1.5 bg-ink rounded-full overflow-hidden">
+              <div class="h-full bg-brass rounded-full" style="width: 92%;"></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Capability Chips -->
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="bg-ink border border-ink-border text-paper-dim font-mono text-xs px-3 py-1.5 rounded">Geopolitics</span>
+          <span class="bg-ink border border-ink-border text-paper-dim font-mono text-xs px-3 py-1.5 rounded">International Law</span>
+          <span class="bg-ink border border-ink-border text-paper-dim font-mono text-xs px-3 py-1.5 rounded">Diplomatic History</span>
+          <span class="bg-ink border border-ink-border text-paper-dim font-mono text-xs px-3 py-1.5 rounded">Organisational Strategy</span>
+          <span class="bg-ink border border-ink-border text-paper-dim font-mono text-xs px-3 py-1.5 rounded">Verbal Briefings</span>
         </div>
       </div>
-      <div>
-        <div class="lang-block">
-          <div class="lang-name">English <small>MOTHER TONGUE + FLUENT</small></div>
-          <div class="cefr-row"><span class="cefr-label">Listening</span><div class="cefr-track"><div class="cefr-fill" style="width:100%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C2</span></div>
-          <div class="cefr-row"><span class="cefr-label">Reading</span><div class="cefr-track"><div class="cefr-fill" style="width:100%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C2</span></div>
-          <div class="cefr-row"><span class="cefr-label">Speaking</span><div class="cefr-track"><div class="cefr-fill" style="width:66%"></div></div><span class="cefr-label" style="width:24px;text-align:right">B2</span></div>
-          <div class="cefr-row"><span class="cefr-label">Writing</span><div class="cefr-track"><div class="cefr-fill" style="width:83%"></div></div><span class="cefr-label" style="width:24px;text-align:right">C1</span></div>
-        </div>
-        <div class="lang-block">
-          <div class="lang-name">German <small>A1</small></div>
-          <div class="cefr-row"><span class="cefr-label">All skills</span><div class="cefr-track"><div class="cefr-fill" style="width:16%"></div></div><span class="cefr-label" style="width:24px;text-align:right">A1</span></div>
+
+      <!-- Right Column: Interactive Language Visualizer -->
+      <div class="lg:col-span-5 flex flex-col gap-6">
+        <h3 class="font-mono text-xs uppercase tracking-widest text-brass flex items-center gap-2">
+          <i class="fas fa-language"></i> Language Proficiency (CEFR Framework)
+        </h3>
+
+        <!-- Interactive Language Switcher Tabs -->
+        <div class="glass-card p-6 rounded-xl flex flex-col gap-6">
+          
+          <!-- English Block -->
+          <div>
+            <div class="flex justify-between items-baseline mb-3">
+              <h4 class="font-display text-xl text-paper font-semibold">English</h4>
+              <span class="font-mono text-xs text-brass bg-brass/10 px-2 py-0.5 rounded border border-brass/20">C2 Fluent / Primary</span>
+            </div>
+
+            <!-- CEFR Breakdown -->
+            <div class="space-y-2 font-mono text-xs">
+              <div class="flex items-center justify-between">
+                <span class="text-slate w-20">Listening</span>
+                <div class="flex-1 mx-3 h-1.5 bg-ink rounded-full overflow-hidden">
+                  <div class="h-full bg-brass" style="width: 100%;"></div>
+                </div>
+                <span class="text-paper font-semibold">C2</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <span class="text-slate w-20">Reading</span>
+                <div class="flex-1 mx-3 h-1.5 bg-ink rounded-full overflow-hidden">
+                  <div class="h-full bg-brass" style="width: 100%;"></div>
+                </div>
+                <span class="text-paper font-semibold">C2</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <span class="text-slate w-20">Writing</span>
+                <div class="flex-1 mx-3 h-1.5 bg-ink rounded-full overflow-hidden">
+                  <div class="h-full bg-brass" style="width: 85%;"></div>
+                </div>
+                <span class="text-paper font-semibold">C1</span>
+              </div>
+
+              <div class="flex items-center justify-between">
+                <span class="text-slate w-20">Speaking</span>
+                <div class="flex-1 mx-3 h-1.5 bg-ink rounded-full overflow-hidden">
+                  <div class="h-full bg-brass" style="width: 75%;"></div>
+                </div>
+                <span class="text-paper font-semibold">B2</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="border-ink-border">
+
+          <!-- German Block -->
+          <div>
+            <div class="flex justify-between items-baseline mb-3">
+              <h4 class="font-display text-xl text-paper font-semibold">German</h4>
+              <span class="font-mono text-xs text-slate bg-slate/10 px-2 py-0.5 rounded border border-slate/20">A1 Beginner</span>
+            </div>
+
+            <div class="font-mono text-xs flex items-center justify-between">
+              <span class="text-slate w-20">Elementary</span>
+              <div class="flex-1 mx-3 h-1.5 bg-ink rounded-full overflow-hidden">
+                <div class="h-full bg-slate" style="width: 25%;"></div>
+              </div>
+              <span class="text-paper font-semibold">A1</span>
+            </div>
+          </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<section id="honours">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Honours, Courses &amp; Certificates</h2>
-      <span class="num">§ 05 / DECORATIONS</span>
+<!-- SECTION 05: HONOURS & CERTIFICATES -->
+<section id="honours" class="py-20 border-b border-ink-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-12 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Honours, Courses &amp; Certifications</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 05 / DECORATIONS</span>
     </div>
-    <div class="seal-grid reveal">
-      <div class="seal">
-        <span class="date">JUN 2025</span>
-        <h5>Gold Medalist</h5>
-        <p>University of Gujrat — highest cGPA in the Bachelor's programme (1st of 80).</p>
+
+    <!-- Certificates Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Cert 1 -->
+      <div onclick="openCertModal('Gold Medalist', 'University of Gujrat', 'JUN 2025', 'Awarded Gold Medal for securing Rank 1 out of 80 students in Bachelor of Science in International Relations with a cumulative GPA of 3.9/4.0.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-brass mb-2">
+            <span>JUN 2025</span>
+            <i class="fas fa-medal text-crimson"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">Gold Medalist</h4>
+          <p class="font-mono text-xs text-slate mb-3">University of Gujrat</p>
+          <p class="text-paper-dim text-xs">Highest overall cGPA in the Bachelor's programme (1st of 80 students).</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">JUN 2026</span>
-        <h5>An Introduction to Human Rights</h5>
-        <p>Amnesty International Human Rights Academy.</p>
+
+      <!-- Cert 2 -->
+      <div onclick="openCertModal('An Introduction to Human Rights', 'Amnesty International Human Rights Academy', 'JUN 2026', 'Comprehensive training on international human rights frameworks, treaty monitoring, advocacy mechanisms, and civilian protection.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-slate mb-2">
+            <span>JUN 2026</span>
+            <i class="fas fa-certificate text-brass"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">An Introduction to Human Rights</h4>
+          <p class="font-mono text-xs text-slate mb-3">Amnesty International Academy</p>
+          <p class="text-paper-dim text-xs">Foundational principles of international human rights law and global advocacy.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">FEB 2024</span>
-        <h5>Migration and Health</h5>
-        <p>Enhancing Intercultural Competence and Diversity Sensitivity — WHO Regional Office for Europe &amp; University of Exeter.</p>
+
+      <!-- Cert 3 -->
+      <div onclick="openCertModal('Migration and Health', 'WHO Europe & University of Exeter', 'FEB 2024', 'Specialized course on public health policy for displaced populations, cross-border health governance, and intercultural health sensitivity.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-slate mb-2">
+            <span>FEB 2024</span>
+            <i class="fas fa-hospital-user text-brass"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">Migration and Health</h4>
+          <p class="font-mono text-xs text-slate mb-3">WHO Europe &amp; Univ. of Exeter</p>
+          <p class="text-paper-dim text-xs">Enhancing intercultural competence and diversity sensitivity in health policies.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">MAY 2023</span>
-        <h5>The Modern World, Part Two</h5>
-        <p>Global history since 1910 — University of Virginia, Coursera.</p>
+
+      <!-- Cert 4 -->
+      <div onclick="openCertModal('The Modern World, Part Two', 'University of Virginia (Coursera)', 'MAY 2023', 'In-depth historical analysis of global geopolitical order, major conflicts, and international organization structures since 1910.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-slate mb-2">
+            <span>MAY 2023</span>
+            <i class="fas fa-landmark text-brass"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">The Modern World, Part Two</h4>
+          <p class="font-mono text-xs text-slate mb-3">University of Virginia / Coursera</p>
+          <p class="text-paper-dim text-xs">Global history and diplomatic evolution from 1910 to present day.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">FEB 2023</span>
-        <h5>Global Diplomacy</h5>
-        <p>Diplomacy in the modern world — University of London, Coursera.</p>
+
+      <!-- Cert 5 -->
+      <div onclick="openCertModal('Global Diplomacy', 'University of London (Coursera)', 'FEB 2023', 'Study of modern diplomatic practice, multi-lateral negotiations, ambassadorial tactics, and soft power dynamics in contemporary international affairs.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-slate mb-2">
+            <span>FEB 2023</span>
+            <i class="fas fa-handshake text-brass"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">Global Diplomacy</h4>
+          <p class="font-mono text-xs text-slate mb-3">University of London / Coursera</p>
+          <p class="text-paper-dim text-xs">Diplomatic negotiation theories and modern statecraft techniques.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">MAR 2023</span>
-        <h5>Best Delegate</h5>
-        <p>Pakistan National Assembly Model.</p>
+
+      <!-- Cert 6 -->
+      <div onclick="openCertModal('Best Delegate & Debater', 'Pakistan National Assembly Model', 'MAR 2023', 'Awarded Best Delegate in model assembly simulations for exceptional policy negotiation, caucus leadership, and legislative drafting.')" 
+           class="glass-card p-6 rounded-xl cursor-pointer flex flex-col justify-between group">
+        <div>
+          <div class="flex justify-between items-center font-mono text-xs text-brass mb-2">
+            <span>MAR 2023</span>
+            <i class="fas fa-trophy text-brass"></i>
+          </div>
+          <h4 class="font-display text-lg text-paper font-semibold group-hover:text-brass transition-colors mb-1">Best Delegate Award</h4>
+          <p class="font-mono text-xs text-slate mb-3">Pakistan National Assembly Model</p>
+          <p class="text-paper-dim text-xs">Recognized for parliamentary debate excellence and diplomatic consensus-building.</p>
+        </div>
+        <div class="mt-4 pt-3 border-t border-ink-border font-mono text-[10px] text-brass flex items-center justify-between">
+          <span>Click to view credential details</span>
+          <i class="fas fa-arrow-right"></i>
+        </div>
       </div>
-      <div class="seal">
-        <span class="date">MAR 2023</span>
-        <h5>Parliamentary Debate</h5>
-        <p>Certificate of participation.</p>
-      </div>
-      <div class="seal">
-        <span class="date">2018 — 2019</span>
-        <h5>Excellent Academic Achievement</h5>
-      </div>
-      <div class="seal">
-        <span class="date">2015 — 2016</span>
-        <h5>Certificate of Global Citizenship</h5>
-        <p>With a Green Student Certificate and volunteer service at the Pakistan Red Crescent Society.</p>
-      </div>
+
     </div>
   </div>
 </section>
 
-<section id="network">
-  <div class="wrap">
-    <div class="folio">
-      <h2>Networks &amp; Memberships</h2>
-      <span class="num">§ 06 / AFFILIATIONS</span>
+<!-- SECTION 06: NETWORK & AFFILIATIONS -->
+<section id="network" class="py-20 border-b border-ink-border bg-ink/30">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-12 border-b border-ink-border pb-4">
+      <h2 class="font-display text-3xl sm:text-4xl text-paper">Institutional Network &amp; Affiliations</h2>
+      <span class="font-mono text-xs text-brass tracking-widest">§ 06 / NETWORK LOG</span>
     </div>
-    <div class="network-list reveal">
-      <div class="network-row">
-        <span class="date">JUL 2025 — CURRENT</span>
-        <div><h5>Associate Member, Multiomics</h5><p>Supporting management tasks, hybrid.</p></div>
-        <a class="ext" href="https://www.linkedin.com/company/wemultiomics/" target="_blank" rel="noopener">linkedin ↗</a>
+
+    <!-- Network List -->
+    <div class="flex flex-col border-t border-ink-border">
+      
+      <!-- Network Row 1 -->
+      <div class="py-6 border-b border-ink-border flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card px-6 rounded-lg my-2">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <span class="font-mono text-xs text-brass shrink-0">JUL 2025 — PRESENT</span>
+          <div>
+            <h4 class="font-display text-lg text-paper font-semibold">Associate Member</h4>
+            <p class="font-mono text-xs text-brass">Multiomics Initiative</p>
+            <p class="text-paper-dim text-xs mt-1">Supporting management tasks, research communications, and hybrid seminar logistics.</p>
+          </div>
+        </div>
+        <a href="https://www.linkedin.com/company/wemultiomics/" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 font-mono text-xs text-slate hover:text-brass border border-ink-border px-3 py-1.5 rounded self-start md:self-center transition-colors">
+          <span>LinkedIn Organization</span>
+          <i class="fas fa-external-link-alt text-[10px]"></i>
+        </a>
       </div>
-      <div class="network-row">
-        <span class="date">JUL 2025 — CURRENT</span>
-        <div><h5>Contributor, Jarida Today Press</h5><p>Writing content across current-affairs niches.</p></div>
-        <a class="ext" href="https://pk.linkedin.com/company/jarida-today-press" target="_blank" rel="noopener">linkedin ↗</a>
+
+      <!-- Network Row 2 -->
+      <div class="py-6 border-b border-ink-border flex flex-col md:flex-row md:items-center justify-between gap-4 glass-card px-6 rounded-lg my-2">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <span class="font-mono text-xs text-brass shrink-0">JUL 2025 — PRESENT</span>
+          <div>
+            <h4 class="font-display text-lg text-paper font-semibold">Contributor &amp; Writer</h4>
+            <p class="font-mono text-xs text-brass">Jarida Today Press</p>
+            <p class="text-paper-dim text-xs mt-1">Writing and editing commentary pieces across current-affairs, policy analysis, and foreign diplomacy niches.</p>
+          </div>
+        </div>
+        <a href="https://pk.linkedin.com/company/jarida-today-press" target="_blank" rel="noopener noreferrer" 
+           class="inline-flex items-center gap-2 font-mono text-xs text-slate hover:text-brass border border-ink-border px-3 py-1.5 rounded self-start md:self-center transition-colors">
+          <span>LinkedIn Organization</span>
+          <i class="fas fa-external-link-alt text-[10px]"></i>
+        </a>
       </div>
+
     </div>
   </div>
 </section>
 
-<footer id="contact">
-  <div class="wrap">
-    <div class="footer-grid">
-      <h2>Open to research &amp; policy roles across global governance and foreign affairs.</h2>
-      <div class="footer-contacts">
-        <a href="mailto:nawazlaiba2026@gmail.com">nawazlaiba2026@gmail.com</a>
-        <a href="tel:+923496055513">+92 349 6055513</a>
-        <span>Gujrat, Punjab, Pakistan</span>
+<!-- SECTION 07: CONTACT & BRIEFING INQUIRY -->
+<footer id="contact" class="py-20 relative bg-ink-dark">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Left Column: Contact Heading -->
+      <div class="lg:col-span-6 flex flex-col gap-6">
+        <div class="inline-flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-brass">
+          <span class="w-8 h-px bg-brass"></span>
+          <span>Initiate Communication</span>
+        </div>
+
+        <h2 class="font-display text-4xl sm:text-5xl text-paper leading-tight">
+          Open to research, policy &amp; global governance roles.
+        </h2>
+
+        <p class="text-paper-dim text-sm max-w-md">
+          Available for policy research fellowships, institutional analysis roles, foreign affairs consulting, and graduate academic collaborations.
+        </p>
+
+        <!-- Direct Contact Info -->
+        <div class="flex flex-col gap-3 font-mono text-xs text-paper-dim pt-4">
+          <a href="mailto:nawazlaiba2026@gmail.com" class="flex items-center gap-3 hover:text-brass transition-colors">
+            <span class="w-8 h-8 rounded bg-ink-card border border-ink-border flex items-center justify-center text-brass">
+              <i class="fas fa-envelope"></i>
+            </span>
+            <span>nawazlaiba2026@gmail.com</span>
+          </a>
+
+          <a href="tel:+923496055513" class="flex items-center gap-3 hover:text-brass transition-colors">
+            <span class="w-8 h-8 rounded bg-ink-card border border-ink-border flex items-center justify-center text-brass">
+              <i class="fas fa-phone"></i>
+            </span>
+            <span>+92 349 6055513</span>
+          </a>
+
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded bg-ink-card border border-ink-border flex items-center justify-center text-brass">
+              <i class="fas fa-map-marker-alt"></i>
+            </span>
+            <span>Gujrat, Punjab, Pakistan</span>
+          </div>
+        </div>
       </div>
+
+      <!-- Right Column: Interactive Inquiry Form -->
+      <div class="lg:col-span-6">
+        <form id="inquiryForm" onsubmit="handleFormSubmit(event)" class="glass-card p-8 rounded-xl flex flex-col gap-4 relative">
+          
+          <h3 class="font-display text-xl text-paper font-semibold mb-2">Send Policy Briefing Inquiry</h3>
+
+          <div>
+            <label class="block font-mono text-xs text-slate mb-1">Your Full Name / Institution *</label>
+            <input type="text" required placeholder="e.g. Dr. Jane Doe (Policy Think Tank)" 
+                   class="w-full bg-ink border border-ink-border rounded px-4 py-2 text-sm text-paper focus:outline-none focus:border-brass font-body">
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-slate mb-1">Official Email Address *</label>
+            <input type="email" required placeholder="jane.doe@institution.org" 
+                   class="w-full bg-ink border border-ink-border rounded px-4 py-2 text-sm text-paper focus:outline-none focus:border-brass font-body">
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-slate mb-1">Inquiry Subject</label>
+            <select class="w-full bg-ink border border-ink-border rounded px-4 py-2 text-sm text-paper focus:outline-none focus:border-brass font-body">
+              <option>Research Position Opportunity</option>
+              <option>Policy Research Collaboration</option>
+              <option>Academic Inquiry</option>
+              <option>General Professional Contact</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-slate mb-1">Message / Project Brief *</label>
+            <textarea required rows="4" placeholder="Brief details about the role or research engagement..." 
+                      class="w-full bg-ink border border-ink-border rounded px-4 py-2 text-sm text-paper focus:outline-none focus:border-brass font-body"></textarea>
+          </div>
+
+          <button type="submit" class="bg-brass hover:bg-brass-light text-ink-dark font-mono font-semibold text-xs uppercase tracking-wider py-3 rounded transition-all mt-2 flex items-center justify-center gap-2">
+            <i class="fas fa-paper-plane"></i>
+            <span>Transmit Inquiry</span>
+          </button>
+
+          <!-- Form Message Output -->
+          <div id="formStatusMsg" class="hidden text-xs font-mono text-brass text-center py-2 bg-brass/10 border border-brass/30 rounded">
+            Inquiry transmitted successfully. You will receive a response shortly.
+          </div>
+        </form>
+      </div>
+
     </div>
-    <div class="footer-bottom">
-      <span>REFERENCES AVAILABLE UPON REQUEST</span>
-      <span>FILE CLOSED — LAIBA NAWAZ © 2026</span>
+
+    <!-- Footer Bottom Line -->
+    <div class="mt-16 pt-8 border-t border-ink-border flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate">
+      <div>REFERENCES &amp; DOSSIER PAPERS AVAILABLE UPON REQUEST</div>
     </div>
+
   </div>
 </footer>
 
+<!-- THESIS DETAIL MODAL -->
+<div id="thesisModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-dark/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-200">
+  <div class="bg-ink-card border border-brass/50 rounded-xl w-full max-w-2xl overflow-hidden shadow-2xl modal-content p-6 sm:p-8 relative">
+    
+    <button onclick="closeThesisModal()" class="absolute top-4 right-4 text-slate hover:text-paper font-mono text-xs p-2">
+      <i class="fas fa-times text-base"></i>
+    </button>
+
+    <div class="font-mono text-xs text-brass uppercase tracking-widest mb-2 flex items-center gap-2">
+      <i class="fas fa-book-open"></i> Bachelor Thesis Executive Summary
+    </div>
+
+    <h3 class="font-display text-2xl text-paper font-semibold mb-4">
+      "Geography as a Determinant of Power: Analyzing the Impact of Germany's Geography on its Global Affairs (1900 — Present)"
+    </h3>
+
+    <div class="space-y-4 text-paper-dim text-sm font-body leading-relaxed max-h-96 overflow-y-auto pr-2">
+      <p>
+        <strong class="text-paper">Research Objective:</strong> This thesis evaluates the extent to which physical geography and strategic location in Central Europe dictated Germany's foreign policy doctrines, alliance formations, and military posture across major geopolitical epochs.
+      </p>
+
+      <div class="bg-ink p-4 rounded border border-ink-border">
+        <h4 class="font-mono text-xs text-brass uppercase mb-2">Key Core Analytical Pillars:</h4>
+        <ul class="list-disc list-inside space-y-1 text-xs">
+          <li><strong>Mitteleuropa Positioning:</strong> Strategic vulnerabilities of the North German Plain.</li>
+          <li><strong>Two-Front Dilemma:</strong> How encirclement anxieties shaped military doctrines from 1900 to 1945.</li>
+          <li><strong>Cold War Division:</strong> The Rhine-Elbe frontier as the geopolitical fault line of NATO &amp; Warsaw Pact.</li>
+          <li><strong>Post-Unification Foreign Policy:</strong> Economic hegemony and multilateral diplomacy in the European Union.</li>
+        </ul>
+      </div>
+
+      <p>
+        <strong class="text-paper">Academic Result:</strong> Awarded highest marks, contributing directly to the Gold Medal standing across the graduating class of 80 students.
+      </p>
+    </div>
+
+    <div class="mt-6 pt-4 border-t border-ink-border flex justify-end">
+      <button onclick="closeThesisModal()" class="bg-brass/20 text-brass border border-brass/40 font-mono text-xs px-4 py-2 rounded hover:bg-brass/30 transition-colors">
+        Close Briefing Note
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CERTIFICATE / CREDENTIAL MODAL -->
+<div id="certModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-ink-dark/85 backdrop-blur-md hidden opacity-0 transition-opacity duration-200">
+  <div class="bg-ink-card border border-brass/50 rounded-xl w-full max-w-lg overflow-hidden shadow-2xl modal-content p-6 relative">
+    
+    <button onclick="closeCertModal()" class="absolute top-4 right-4 text-slate hover:text-paper font-mono text-xs p-2">
+      <i class="fas fa-times text-base"></i>
+    </button>
+
+    <div class="font-mono text-xs text-brass uppercase tracking-widest mb-2 flex items-center gap-2">
+      <i class="fas fa-certificate"></i> Credential Dossier
+    </div>
+
+    <h3 id="modalCertTitle" class="font-display text-2xl text-paper font-semibold mb-1">Title</h3>
+    <div id="modalCertIssuer" class="font-mono text-xs text-slate mb-4">Issuer</div>
+
+    <div class="bg-ink p-4 rounded border border-ink-border mb-4">
+      <div id="modalCertDate" class="font-mono text-xs text-brass mb-2">Date</div>
+      <p id="modalCertDesc" class="text-paper-dim text-sm">Description text...</p>
+    </div>
+
+    <div class="flex justify-end">
+      <button onclick="closeCertModal()" class="bg-brass/20 text-brass border border-brass/40 font-mono text-xs px-4 py-2 rounded hover:bg-brass/30 transition-colors">
+        Close Record
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  /* -------------------------------------------------------------
+   * 1. SEARCH FUNCTIONALITY & DOSSIER KEYWORD INDEX
+   * ------------------------------------------------------------- */
+  const dossierData = [
+    { title: "BS in International Relations", category: "Education", text: "University of Gujrat, 3.9 GPA, Gold Medalist, Rank 1 of 80", link: "#education" },
+    { title: "Germany Geopolitics Thesis", category: "Research", text: "Geography as a determinant of power in German foreign policy from 1900 to present", link: "#education" },
+    { title: "Volunteer at PML(Q)", category: "Experience", text: "Community outreach and observing policy development processes in Gujrat", link: "#experience" },
+    { title: "Youth Internship - Punjab Police", category: "Experience", text: "Insight into law enforcement operations and institutional management", link: "#experience" },
+    { title: "Content Writing Intern - Insider.pvt", category: "Experience", text: "Current affairs writing and policy research", link: "#experience" },
+    { title: "Amnesty International Human Rights", category: "Certification", text: "Introduction to Human Rights Certification", link: "#honours" },
+    { title: "WHO Migration & Health", category: "Certification", text: "WHO Europe & Exeter course on migration health policies", link: "#honours" },
+    { title: "Global Diplomacy - Univ of London", category: "Certification", text: "Coursera certification in diplomatic practice", link: "#honours" },
+    { title: "Best Delegate Award", category: "Honour", text: "Pakistan National Assembly Model parliamentary debate", link: "#honours" },
+    { title: "Multiomics Associate Member", category: "Network", text: "Research management and hybrid logistics", link: "#network" }
+  ];
+
+  const searchTriggerBtn = document.getElementById('searchTriggerBtn');
+  const searchModal = document.getElementById('searchModal');
+  const closeSearchBtn = document.getElementById('closeSearchBtn');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  function openSearch() {
+    searchModal.classList.remove('hidden');
+    setTimeout(() => searchModal.classList.remove('opacity-0'), 10);
+    searchInput.focus();
+  }
+
+  function closeSearch() {
+    searchModal.classList.add('opacity-0');
+    setTimeout(() => searchModal.classList.add('hidden'), 200);
+  }
+
+  searchTriggerBtn.addEventListener('click', openSearch);
+  closeSearchBtn.addEventListener('click', closeSearch);
+
+  // Shortcut key (Cmd/Ctrl + K)
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape' && !searchModal.classList.contains('hidden')) {
+      closeSearch();
+    }
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    if (!query) {
+      searchResults.innerHTML = '<div class="text-slate font-mono text-xs p-3 text-center">Type to search dossier contents...</div>';
+      return;
+    }
+
+    const filtered = dossierData.filter(item => 
+      item.title.toLowerCase().includes(query) || 
+      item.text.toLowerCase().includes(query) ||
+      item.category.toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) {
+      searchResults.innerHTML = '<div class="text-slate font-mono text-xs p-3 text-center">No matching briefing files found.</div>';
+      return;
+    }
+
+    searchResults.innerHTML = filtered.map(item => `
+      <a href="${item.link}" onclick="closeSearch()" class="block p-3 rounded-lg bg-ink hover:bg-ink-hover border border-ink-border transition-colors">
+        <div class="flex items-center justify-between font-mono text-[10px] text-brass mb-1">
+          <span>${item.category.toUpperCase()}</span>
+          <i class="fas fa-arrow-right text-[10px]"></i>
+        </div>
+        <div class="font-display font-semibold text-paper text-sm">${item.title}</div>
+        <div class="text-paper-dim text-xs mt-1">${item.text}</div>
+      </a>
+    `).join('');
+  });
+
+
+  /* -------------------------------------------------------------
+   * 2. FIELD EXPERIENCE CATEGORY FILTERS
+   * ------------------------------------------------------------- */
+  const filterBtns = document.querySelectorAll('.exp-filter-btn');
+  const expCards = document.querySelectorAll('.exp-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-brass', 'text-ink-dark', 'font-semibold');
+        b.classList.add('bg-ink-card', 'text-paper-dim');
+      });
+
+      btn.classList.add('active', 'bg-brass', 'text-ink-dark', 'font-semibold');
+      btn.classList.remove('bg-ink-card', 'text-paper-dim');
+
+      const category = btn.getAttribute('data-category');
+
+      expCards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
-  }, { threshold: 0.15 });
-  revealEls.forEach(el=>io.observe(el));
+  });
+
+
+  /* -------------------------------------------------------------
+   * 3. MODAL HANDLERS (THESIS & CREDENTIALS)
+   * ------------------------------------------------------------- */
+  const thesisModal = document.getElementById('thesisModal');
+  const certModal = document.getElementById('certModal');
+
+  function openThesisModal() {
+    thesisModal.classList.remove('hidden');
+    setTimeout(() => thesisModal.classList.remove('opacity-0'), 10);
+  }
+
+  function closeThesisModal() {
+    thesisModal.classList.add('opacity-0');
+    setTimeout(() => thesisModal.classList.add('hidden'), 200);
+  }
+
+  function openCertModal(title, issuer, date, desc) {
+    document.getElementById('modalCertTitle').innerText = title;
+    document.getElementById('modalCertIssuer').innerText = issuer;
+    document.getElementById('modalCertDate').innerText = date;
+    document.getElementById('modalCertDesc').innerText = desc;
+
+    certModal.classList.remove('hidden');
+    setTimeout(() => certModal.classList.remove('opacity-0'), 10);
+  }
+
+  function closeCertModal() {
+    certModal.classList.add('opacity-0');
+    setTimeout(() => certModal.classList.add('hidden'), 200);
+  }
+
+
+  /* -------------------------------------------------------------
+   * 4. MOBILE MENU & FORM SUBMISSION HANDLERS
+   * ------------------------------------------------------------- */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const statusMsg = document.getElementById('formStatusMsg');
+    statusMsg.classList.remove('hidden');
+    e.target.reset();
+    setTimeout(() => {
+      statusMsg.classList.add('hidden');
+    }, 5000);
+  }
+
+  document.getElementById('downloadResumeBtn').addEventListener('click', () => {
+    // Printable view window generator for full CV overview
+    window.print();
+  });
+
+
+  /* -------------------------------------------------------------
+   * 5. THREE.JS 3D INTERACTIVE GLOBE INITIALIZATION
+   * ------------------------------------------------------------- */
+  window.addEventListener('load', () => {
+    const container = document.getElementById('globeCanvasContainer');
+    if (!container) return;
+
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    // Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.z = 220;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Globe Group
+    const globeGroup = new THREE.Group();
+    scene.add(globeGroup);
+
+    // Wireframe Sphere (The Globe Grid)
+    const geometry = new THREE.SphereGeometry(75, 28, 28);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0x8C744F,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.35
+    });
+    const globeMesh = new THREE.Mesh(geometry, material);
+    globeGroup.add(globeMesh);
+
+    // Inner Solid Sphere (Dark Core)
+    const innerGeo = new THREE.SphereGeometry(73, 32, 32);
+    const innerMat = new THREE.MeshBasicMaterial({
+      color: 0x071322,
+      transparent: true,
+      opacity: 0.9
+    });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    globeGroup.add(innerMesh);
+
+    // Helper: Convert Lat/Long to 3D Coordinates on Sphere
+    function latLongToVector3(lat, lon, radius) {
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lon + 180) * (Math.PI / 180);
+
+      const x = -(radius * Math.sin(phi) * Math.cos(theta));
+      const z = radius * Math.sin(phi) * Math.sin(theta);
+      const y = radius * Math.cos(phi);
+
+      return new THREE.Vector3(x, y, z);
+    }
+
+    // Pin Locations (Gujrat, Berlin, London)
+    const locations = [
+      { name: "Gujrat", lat: 32.5738, lon: 74.0789, color: 0xA6402F },
+      { name: "Berlin", lat: 52.5200, lon: 13.4050, color: 0xBE9A63 },
+      { name: "London", lat: 51.5074, lon: -0.1278, color: 0xEDE7D6 }
+    ];
+
+    locations.forEach(loc => {
+      const pos = latLongToVector3(loc.lat, loc.lon, 76);
+      
+      // Pin Dot
+      const dotGeo = new THREE.SphereGeometry(2, 12, 12);
+      const dotMat = new THREE.MeshBasicMaterial({ color: loc.color });
+      const dotMesh = new THREE.Mesh(dotGeo, dotMat);
+      dotMesh.position.copy(pos);
+      globeGroup.add(dotMesh);
+    });
+
+    // Connecting Arc Line from Gujrat to Berlin
+    const p1 = latLongToVector3(32.5738, 74.0789, 76);
+    const p2 = latLongToVector3(52.5200, 13.4050, 76);
+
+    const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+    mid.normalize().multiplyScalar(95); // Arch height
+
+    const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+    const points = curve.getPoints(30);
+    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xBE9A63, transparent: true, opacity: 0.7 });
+    const line = new THREE.Line(lineGeo, lineMat);
+    globeGroup.add(line);
+
+    // Mouse Drag Rotation Logic
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+
+      const deltaMove = {
+        x: e.clientX - previousMousePosition.x,
+        y: e.clientY - previousMousePosition.y
+      };
+
+      globeGroup.rotation.y += deltaMove.x * 0.005;
+      globeGroup.rotation.x += deltaMove.y * 0.005;
+
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch support for mobile devices
+    container.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        isDragging = true;
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      const deltaMove = {
+        x: e.touches[0].clientX - previousMousePosition.x,
+        y: e.touches[0].clientY - previousMousePosition.y
+      };
+      globeGroup.rotation.y += deltaMove.x * 0.005;
+      globeGroup.rotation.x += deltaMove.y * 0.005;
+      previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    });
+
+    window.addEventListener('touchend', () => { isDragging = false; });
+
+    // Animation Loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Auto rotation when not dragging
+      if (!isDragging) {
+        globeGroup.rotation.y += 0.002;
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Handle Window Resize
+    window.addEventListener('resize', () => {
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+  });
 </script>
 
 </body>
